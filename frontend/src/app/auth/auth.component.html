@@ -1,0 +1,14 @@
+<div class="login-container">
+    <p-card header="Login" subheader="">
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+            <div class="field">
+                <input type="email" pInputText formControlName="email" placeholder="Email" [fluid]="true" [autocomplete]="false" />
+            </div>
+            <div class="field">
+                <p-password formControlName="password" [feedback]="false" placeholder="Password" [fluid]="true" />
+            </div>
+
+            <p-button type="submit" [disabled]="loginForm.invalid" label="Success" severity="success" />
+        </form>
+    </p-card>
+</div>
