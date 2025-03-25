@@ -4,7 +4,8 @@ import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
 import { CardModule } from 'primeng/card';
-import { AuthService } from '../service/auth.service';
+import { Store } from '@ngrx/store';
+import { setProfileRole } from '../store/profile/profile.actions';
 
 @Component({
   selector: 'app-auth',
@@ -21,16 +22,21 @@ import { AuthService } from '../service/auth.service';
 })
 export class AuthComponent {
   private formBuilder = inject(FormBuilder);
-  private authService = inject(AuthService);
 
   loginForm = this.formBuilder.group({
     email: ['', Validators.required],
     password: ['', Validators.required],
   });
 
+  constructor(private store: Store) { }
+
   onSubmit() {
     if (this.loginForm.valid) {
-      this.authService.login(this.loginForm.value);
+      const email = this.loginForm.value.email as string;
+      const password = this.loginForm.value.password as string;
+
+      // Dispatch the action to set the profile role.
+      this.store.dispatch(setProfileRole({ credentials: { email, password } }));
     }
   }
 

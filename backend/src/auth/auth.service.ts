@@ -21,7 +21,9 @@ export class AuthService {
     // Prepare the payload. Customize as needed.
     const payload = { email: user.email, sub: user.id, role: user.role };
 
-    // Sign and return the JWT token
-    return { token: this.jwtService.sign(payload) };
+    // Sign and return the JWT token along with the user role
+    const token = this.jwtService.sign(payload);
+    
+    return { token, role: user.role };
   }
 }

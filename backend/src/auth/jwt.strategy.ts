@@ -6,14 +6,22 @@ import { ExtractJwt, Strategy } from 'passport-jwt';
 export class JwtStrategy extends PassportStrategy(Strategy) {
   constructor() {
     super({
-      jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+      jwtFromRequest: ExtractJwt.fromExtractors([
+        (req) => {
+          console.log(req.cookies);
+
+          return req?.cookies?.jwt;
+        },
+      ]),
       ignoreExpiration: false,
-      secretOrKey: 'secretKey', // Use the same secret as in the JwtModule! Dodati ovo u env fajl i napisati komentar da za produkciju treba da bude neki secret manager
+      secretOrKey: 'secretKey',
     });
   }
 
   async validate(payload: any) {
+    console.log('Decoded JWT payload:', payload);
+    
     // Here you could also add additional validation logic if needed
-    return { userId: payload.sub, username: payload.username, role: payload.role };
+    return { userId: payload.sub, email: payload.email, role: payload.role };
   }
 }

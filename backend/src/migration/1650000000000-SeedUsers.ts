@@ -18,10 +18,10 @@ export class CreateUsersTableAndSeed1650000000000 implements MigrationInterface 
     await queryRunner.query(`
       INSERT INTO "users" (email, password, role) VALUES
         ('admin@test.com', 'adminpassword', 'admin'),
-        ('user1@test.com', 'password1', 'regular'),
-        ('user2@test.com', 'password2', 'regular'),
-        ('user3@test.com', 'password3', 'regular'),
-        ('user4@test.com', 'password4', 'regular')
+        ('user1@test.com', 'password1', 'user'),
+        ('user2@test.com', 'password2', 'user'),
+        ('user3@test.com', 'password3', 'user'),
+        ('user4@test.com', 'password4', 'user')
     `);
   }
 
