@@ -23,18 +23,18 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(withInterceptorsFromDi()),
     provideAnimations(),
     providePrimeNG({
-        theme: {
-            preset: Aura
-        },
-        inputStyle: 'outlined',
+      theme: {
+        preset: Aura
+      },
+      inputStyle: 'outlined',
     }),
     provideStore({ profile: profileReducer, users: usersReducer }),
     provideEffects([ProfileEffects, UsersEffects]),
     provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),
     provideAppInitializer(() => {
-        const authService = inject(AuthService);
+      const authService = inject(AuthService);
 
-        return authService.restoreSession();
+      return authService.restoreSession();
     }),
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
   ]

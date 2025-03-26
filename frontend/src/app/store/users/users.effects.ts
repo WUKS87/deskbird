@@ -51,12 +51,9 @@ export class UsersEffects {
     this.actions$.pipe(
       ofType(deleteUser),
       exhaustMap(action =>
-      {
-        console.log('action', action);
-        return this.usersService.deleteUser(action.id).pipe(
+        this.usersService.deleteUser(action.id).pipe(
           map(() => getUsers())
         )
-      }
       )
     )
   );

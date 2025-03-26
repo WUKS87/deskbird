@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { setProfileSuccess } from '../store/profile/profile.actions';
+import { clearProfile, setProfileSuccess } from '../store/profile/profile.actions';
 import { Store } from '@ngrx/store';
 import { environment } from '../../environments/environment';
 import { AuthCredentials } from '../models/auth.model';
@@ -33,12 +33,14 @@ export class AuthService {
       if (now < expires) {
         this.store.dispatch(setProfileSuccess({ role }));
       } else {
+        this.store.dispatch(clearProfile());
         localStorage.removeItem('deskbirdUserSession');
       }
     }
   }
 
   logout() {
+    this.store.dispatch(clearProfile());
     localStorage.removeItem('deskbirdUserSession');
   }
 }

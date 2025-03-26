@@ -5,6 +5,7 @@ import { UsersModule } from './users/users.module';
 
 @Module({
   imports: [
+    // All sensitive information should be stored in environment variables or a secret manager.
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: 'localhost',

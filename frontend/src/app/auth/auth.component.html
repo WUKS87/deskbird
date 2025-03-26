@@ -1,20 +1,21 @@
 <div class="login-container">
-    <p-card header="Login" subheader="">
-        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-            <div class="field">
-                <input type="email" pInputText formControlName="email" placeholder="Email" [fluid]="true" [autocomplete]="false" />
-            </div>
-            <div class="field">
-                <p-password formControlName="password" [feedback]="false" placeholder="Password" [fluid]="true" />
-            </div>
+  <p-card header="Login" subheader="">
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <div class="field">
+        <input type="email" pInputText formControlName="email" placeholder="Email" [fluid]="true"
+          [autocomplete]="false" />
+      </div>
+      <div class="field">
+        <p-password formControlName="password" [feedback]="false" placeholder="Password" [fluid]="true" />
+      </div>
 
-            @if (errorMessage$ | async; as errorMsg) {
-              <p-message closable severity="error" styleClass="mb-8">
-                {{ errorMsg }}
-              </p-message>
-            }
+      @if (errorMessage$ | async; as errorMsg) {
+      <p-message closable severity="error" styleClass="mb-8">
+        {{ errorMsg }}
+      </p-message>
+      }
 
-            <p-button type="submit" [disabled]="loginForm.invalid" label="Success" severity="success" />
-        </form>
-    </p-card>
+      <p-button type="submit" [disabled]="loginForm.invalid" label="Success" severity="success" />
+    </form>
+  </p-card>
 </div>

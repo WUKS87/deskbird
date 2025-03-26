@@ -12,7 +12,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
         },
       ]),
       ignoreExpiration: false,
-      secretOrKey: 'secretKey',
+      secretOrKey: 'secretKey', // Secret key from Google Secret Manager.
     });
   }
 
