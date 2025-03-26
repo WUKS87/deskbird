@@ -7,3 +7,8 @@ export const selectUserRole = createSelector(
   selectProfileState,
   (state: ProfileState) => state.role
 );
+
+export const selectProfileError = createSelector(
+  selectProfileState,
+  (state: ProfileState) => state.error
+);

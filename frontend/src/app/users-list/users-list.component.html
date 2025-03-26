@@ -1,28 +1,35 @@
 <p-card header="Users List">
+  @if (isAdmin()) {
     <app-add-user #userModal />
+  }
 
-    <p-table [columns]="cols" [value]="(users | async) ?? []" [scrollable]="true" scrollHeight="400px" [virtualScroll]="true" [virtualScrollItemSize]="65">
-        <ng-template #header let-columns>
-            <tr>
-                <th *ngFor="let col of columns" style="width: 20%;">
-                    {{ col.header }}
-                </th>
-                <th style="width: 20%;"></th>
-            </tr>
-        </ng-template>
-        <ng-template #body let-rowData let-rowIndex="rowIndex" let-columns="columns">
-            <tr style="height:65px">
-                <td *ngFor="let col of columns">
-                    {{ rowData[col.field] }}
-                </td>
+  <p-table [columns]="cols" [value]="(users | async) ?? []" [scrollable]="true" scrollHeight="400px"
+    [virtualScroll]="true" [virtualScrollItemSize]="65">
+    <ng-template #header let-columns>
+      <tr>
+        <th *ngFor="let col of columns" style="width: 20%;">
+          {{ col.header }}
+        </th>
+        @if (isAdmin()) {
+          <th style="width: 20%;"></th>
+        }
+      </tr>
+    </ng-template>
+    <ng-template #body let-rowData let-rowIndex="rowIndex" let-columns="columns">
+      <tr style="height:65px">
+        <td *ngFor="let col of columns">
+          {{ rowData[col.field] }}
+        </td>
 
-                <td>
-                    <div class="actions">
-                        <p-button icon="pi pi-pencil" (onClick)="editUser(rowData, userModal)" severity="secondary" rounded />
-                        <p-button icon="pi pi-trash" (onClick)="deleteUser(rowData)" severity="secondary" rounded />
-                    </div>
-                </td>
-            </tr>
-        </ng-template>
-    </p-table>
+        @if (isAdmin()) {
+          <td>
+            <div class="actions">
+              <p-button icon="pi pi-pencil" (onClick)="editUser(rowData)" severity="secondary" rounded />
+              <p-button icon="pi pi-trash" (onClick)="deleteUser(rowData)" severity="secondary" rounded />
+            </div>
+          </td>
+        }
+      </tr>
+    </ng-template>
+  </p-table>
 </p-card>

@@ -14,23 +14,23 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent {
-    public store = inject(Store);
+  public store = inject(Store);
 
-    public showHeader = this.store.select(selectUserRole).pipe(
-        map(role => role ? true : false)
-    );
+  public showHeader = this.store.select(selectUserRole).pipe(
+    map(role => role ? true : false)
+  );
 
-    public items: MenuItem[] = [
-        {
-            label: 'Home',
-            route: '/list',
-        },
-        {
-            label: 'Sign Out',
-            command: () => {
-                localStorage.removeItem('deskbirdUserSession');
-                window.location.href = '/auth';
-            },
-        },
-    ];
+  public items: MenuItem[] = [
+    {
+      label: 'Home',
+      route: '/list',
+    },
+    {
+      label: 'Sign Out',
+      command: () => {
+        localStorage.removeItem('deskbirdUserSession');
+        window.location.href = '/auth';
+      },
+    },
+  ];
 }

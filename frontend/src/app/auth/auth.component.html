@@ -8,6 +8,12 @@
                 <p-password formControlName="password" [feedback]="false" placeholder="Password" [fluid]="true" />
             </div>
 
+            @if (errorMessage$ | async; as errorMsg) {
+              <p-message closable severity="error" styleClass="mb-8">
+                {{ errorMsg }}
+              </p-message>
+            }
+
             <p-button type="submit" [disabled]="loginForm.invalid" label="Success" severity="success" />
         </form>
     </p-card>

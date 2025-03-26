@@ -1,10 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { setProfileRoleSuccess } from '../store/profile/profile.actions';
+import { setProfileSuccess } from '../store/profile/profile.actions';
 import { Store } from '@ngrx/store';
 import { environment } from '../../environments/environment';
 import { AuthCredentials } from '../models/auth.model';
+
+interface AuthResponse {
+  role: string;
+}
 
 @Injectable({
   providedIn: 'root'
@@ -15,8 +19,8 @@ export class AuthService {
     private store: Store
 ) {}
 
-  login(credentials: AuthCredentials): Observable<any> {
-    return this.http.post(`${environment.apiUrl}/auth/login`, credentials);
+  login(credentials: AuthCredentials): Observable<AuthResponse> {
+    return this.http.post<AuthResponse>(`${environment.apiUrl}/auth/login`, credentials);
   }
 
   restoreSession() {
@@ -27,7 +31,7 @@ export class AuthService {
       const now = new Date().getTime();
 
       if (now < expires) {
-        this.store.dispatch(setProfileRoleSuccess({ role }));
+        this.store.dispatch(setProfileSuccess({ role }));
       } else {
         localStorage.removeItem('deskbirdUserSession');
       }

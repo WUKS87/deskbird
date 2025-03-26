@@ -1,6 +1,7 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { UsersService } from '../users/users.service';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class AuthService {
@@ -10,18 +11,16 @@ export class AuthService {
   ) {}
 
   async signIn(email: string, password: string) {
-    // Fetch the user using the UsersService
     const user = await this.usersService.findOneByEmail(email);
-    
-    // Basic password check (in production, use bcrypt or similar)
-    if (!user || user.password !== password) {
+
+    const isPassMatch = await bcrypt.compare(password, user?.password || '');
+    if (!user || !isPassMatch) {
       throw new UnauthorizedException('Invalid credentials');
     }
 
-    // Prepare the payload. Customize as needed.
     const payload = { email: user.email, sub: user.id, role: user.role };
 
-    // Sign and return the JWT token along with the user role
+    // Sign and return the JWT token along with the user role.
     const token = this.jwtService.sign(payload);
     
     return { token, role: user.role };

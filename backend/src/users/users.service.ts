@@ -1,8 +1,9 @@
 import { ConflictException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { UserRole, Users } from './user.entity';
+import { Users } from './user.entity';
 import { CreateUserDto, EditUserDto } from './user.dto';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class UsersService {
@@ -15,7 +16,6 @@ export class UsersService {
     return this.usersRepository.find();
   }
 
-  // Method to find a user by email.
   async findOneByEmail(email: string): Promise<Users | null> {
     return this.usersRepository.findOne({ where: { email } });
   }
@@ -29,9 +29,10 @@ export class UsersService {
       throw new ConflictException('Email is already in use');
     }
 
+    const newUserPass = await bcrypt.hash('genericPass', 10);
     const user = this.usersRepository.create({
       email,
-      password: 'password',
+      password: newUserPass,
       role,
     });
 

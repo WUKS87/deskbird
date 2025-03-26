@@ -1,7 +1,10 @@
-// ::ng-deep {
-//     .user-modal {
-//         input {
-//             width: 100%;
-//         }
-//     }
-// }
+::ng-deep {
+  .user-modal {
+    width: 25rem;
+  }
+}
+
+.user-actions {
+  width: 100%;
+  justify-content: space-between;
+}

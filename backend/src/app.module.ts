@@ -14,7 +14,7 @@ import { UsersModule } from './users/users.module';
       database: 'deskbird-db',
       entities: [__dirname + '/**/*.entity{.ts,.js}'],
       migrations: [__dirname + '/../migration/*{.ts,.js}'],
-      synchronize: false, // Disable synchronize in production in favor of migrations
+      synchronize: false,
       logging: true,
     }),
     UsersModule,

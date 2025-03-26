@@ -10,19 +10,19 @@ import { AddUser, User } from '../models/users.model';
 export class UsersService {
   constructor(private http: HttpClient) { }
 
-  getAllUsers(): Observable<any> {
-    return this.http.get(`${environment.apiUrl}/users`, { withCredentials: true });
+  getAllUsers(): Observable<User[]> {
+    return this.http.get<User[]>(`${environment.apiUrl}/users`);
   }
 
-  addUser(user: AddUser): Observable<any> {
-    return this.http.post(`${environment.apiUrl}/users/create`, user, { withCredentials: true });
+  addUser(user: AddUser): Observable<User> {
+    return this.http.post<User>(`${environment.apiUrl}/users/create`, user);
   }
 
-  editUser(user: User): Observable<any> {
-    return this.http.put(`${environment.apiUrl}/users/update`, user, { withCredentials: true });
+  editUser(user: User): Observable<User> {
+    return this.http.put<User>(`${environment.apiUrl}/users/update`, user);
   }
 
-  deleteUser(id: number): Observable<any> {
-    return this.http.delete(`${environment.apiUrl}/users/${id}`, { withCredentials: true });
+  deleteUser(id: number) {
+    return this.http.delete(`${environment.apiUrl}/users/${id}`);
   }
 }

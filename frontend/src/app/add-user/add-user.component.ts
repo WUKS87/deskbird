@@ -3,6 +3,7 @@ import { Dialog } from 'primeng/dialog';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { SelectModule } from 'primeng/select';
+import { MessageModule } from 'primeng/message';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { addUser, addUserSuccess, editUser, editUserSuccess } from '../store/users/users.actions';
@@ -20,7 +21,8 @@ import { User } from '../models/users.model';
     ButtonModule,
     InputTextModule, 
     SelectModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MessageModule
   ],
   templateUrl: './add-user.component.html',
   styleUrl: './add-user.component.scss'

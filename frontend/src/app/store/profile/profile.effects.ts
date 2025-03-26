@@ -1,8 +1,8 @@
 import { inject, Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
-import { setProfileRole, setProfileRoleSuccess } from "./profile.actions";
+import { setProfile, setProfileError, setProfileSuccess } from "./profile.actions";
 import { AuthService } from "../../service/auth.service";
-import { exhaustMap, map, tap } from "rxjs";
+import { catchError, exhaustMap, map, of, tap } from "rxjs";
 import { Router } from "@angular/router";
 
 @Injectable()
@@ -13,7 +13,7 @@ export class ProfileEffects {
 
   profile$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(setProfileRole),
+      ofType(setProfile),
       exhaustMap(action =>
         this.authService.login(action.credentials).pipe(
           tap(response => {
@@ -24,7 +24,8 @@ export class ProfileEffects {
               expires: expirationTime
             }));
           }),
-          map(response => setProfileRoleSuccess({ role: response.role }))
+          map(response => setProfileSuccess({ role: response.role })),
+          catchError(err => of(setProfileError({ error: err.error.message })))
         )
       )
     )
@@ -33,7 +34,7 @@ export class ProfileEffects {
   redirectAfterLogin$ = createEffect(
     () =>
       this.actions$.pipe(
-        ofType(setProfileRoleSuccess),
+        ofType(setProfileSuccess),
         tap(() => {
           this.router.navigate(['/list']);
         })

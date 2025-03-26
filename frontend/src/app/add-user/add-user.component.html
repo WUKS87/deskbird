@@ -1,6 +1,6 @@
 <p-button (click)="showDialog()" icon="pi pi-plus" severity="secondary" rounded label="Add User" />
 
-<p-dialog [header]="isEditMode() ? 'Edit User' : 'Add New User'" [modal]="true" [visible]="visible()" (onHide)="hideDialog()" styleClass="user-modal" [style]="{ width: '25rem' }">
+<p-dialog [header]="isEditMode() ? 'Edit User' : 'Add New User'" [modal]="true" [visible]="visible()" [closable]="false" styleClass="user-modal">
   <form [formGroup]="addUserForm" (ngSubmit)="onSubmit()">
     <div class="flex items-center mb-4">
       <input pInputText class="flex-auto" formControlName="email" autocomplete="off" placeholder="Email" />
@@ -11,12 +11,12 @@
     </div>
 
     @if (errorMessage$ | async; as errorMsg) {
-      <div class="error-message">
+      <p-message closable severity="error" styleClass="mb-8">
         {{ errorMsg }}
-      </div>
+      </p-message>
     }
 
-    <div class="flex justify-end">
+    <div class="flex user-actions">
       <p-button label="Cancel" severity="secondary" (onClick)="hideDialog()" />
       <p-button label="Save" type="submit" />
     </div>

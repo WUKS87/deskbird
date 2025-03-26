@@ -1,9 +1,10 @@
 import { createReducer, on } from '@ngrx/store';
 import { initialProfileState, ProfileState } from './profile.state';
-import { clearProfile, setProfileRoleSuccess } from './profile.actions';
+import { clearProfile, setProfileError, setProfileSuccess } from './profile.actions';
 
 export const profileReducer = createReducer(
   initialProfileState,
-  on(setProfileRoleSuccess, (state: ProfileState, { role }) => ({ ...state, role })),
+  on(setProfileSuccess, (state: ProfileState, { role }) => ({ ...state, role })),
+  on(setProfileError, (state: ProfileState, { error }) => ({ ...state, error })),
   on(clearProfile, () => initialProfileState)
 );
